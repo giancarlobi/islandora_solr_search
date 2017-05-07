@@ -357,11 +357,11 @@ function islandora_solr_prepare_solr_results($solr_results) {
       elseif (isset($highlighting[$pid][$field])) {
         $value = $highlighting[$pid][$field];
       }
-      // Replace PID with Object Label
+      // Replace PID with Object Label.
       if (in_array($field, $replace_pid_with_label)) {
         $query_processor = new IslandoraSolrQueryProcessor();
         $label = NULL;
-        $pid_to_label_mapper = function($uri) use ($query_processor){
+        $pid_to_label_mapper = function ($uri) use ($query_processor) {
           $pid = str_replace('info:fedora/', '', $uri);
           if (islandora_is_valid_pid($pid)) {
             $query_processor->buildQuery("PID:\"$pid\"");

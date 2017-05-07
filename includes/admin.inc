@@ -1903,7 +1903,7 @@ function islandora_solr_admin_settings_result_fields($form, &$form_state, $varia
     '#type' => 'checkbox',
     '#title' => t('Replace PID with Object Label'),
     '#default_value' => isset($values['replace_pid_with_label']) ? $values['replace_pid_with_label'] : FALSE,
-    '#description' => t('Replace a PID (islandora:foo) or a URI (info:fedora/islandora:foo) with that object\'s label. Will only work with non-tokenized Solr fields (full literal strings).'),
+    '#description' => t("Replace a PID (islandora:foo) or a URI (info:fedora/islandora:foo) with that object's label. Will only work with non-tokenized Solr fields (full literal strings)."),
   );
 
   if (islandora_solr_is_date_field($solr_field)) {
