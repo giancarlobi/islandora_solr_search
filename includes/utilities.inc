@@ -366,7 +366,7 @@ function islandora_solr_prepare_solr_results($solr_results) {
           if (islandora_is_valid_pid($pid)) {
             $query_processor->buildQuery("PID:\"$pid\"");
             $query_processor->solrParams['fl'] = 'PID, ' . variable_get('islandora_solr_object_label_field', 'fgs_label_s');
-            $query_processor->executeQuery();
+            $query_processor->executeQuery(FALSE);
             if (!empty($query_processor->islandoraSolrResult) && !empty($query_processor->islandoraSolrResult['response']['objects'])) {
               $label = (!empty($query_processor->islandoraSolrResult['response']['objects'][0]['object_label']) ?
                 $query_processor->islandoraSolrResult['response']['objects'][0]['object_label'] : NULL);
@@ -375,11 +375,13 @@ function islandora_solr_prepare_solr_results($solr_results) {
             // eg: content models.
             else {
               if ($object = islandora_object_load($pid)) {
-                $label = $object->label;
+                if (islandora_object_access(ISLANDORA_VIEW_OBJECTS, $object)) {
+                  $label = $object->label;
+                }
               }
             }
           }
-          return ($label ? $label : $uri);
+          return (isset($label) ? $label : $uri);
         };
         $value = array_map($pid_to_label_mapper, (array) $value);
       }
