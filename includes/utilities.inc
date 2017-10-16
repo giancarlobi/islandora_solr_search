@@ -381,7 +381,7 @@ function islandora_solr_prepare_solr_results($solr_results) {
               }
             }
           }
-          return (isset($label) ? $label : $uri);
+          return (!empty($label) ? $label : $uri);
         };
         $value = array_map($pid_to_label_mapper, (array) $value);
       }
